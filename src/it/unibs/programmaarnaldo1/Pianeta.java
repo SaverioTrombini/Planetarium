@@ -29,7 +29,7 @@ public class Pianeta extends CorpoCeleste {
 	public Luna restituisciLunaTramiteId(Id id) {
 		Luna presente= null;
 		for (Luna i: lune) {
-			if (i.getId().equals(id))
+			if (i.getId().getNome().equals(id.getNome()))
 				presente= i;}
 		return presente;}	
 
@@ -37,13 +37,11 @@ public class Pianeta extends CorpoCeleste {
 	public boolean presenzaLuna(Id id) {
 		boolean presente=false;
 		for (Luna i : lune) {
-			if (i.getId().equals(id))
+			if (i.getId().getNome().equals(id.getNome()))
 				presente = true;}
 			return presente;}
 
-	
-	
-
+	//Getter
 	public Stella getStella() {
 		return stella;
 	}

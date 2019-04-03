@@ -29,20 +29,19 @@ public class PlanetariumMain {
 	private static Stella stella;
 	private static SistemaStellare sistema;
 
-	public static void main(String[] args) {
-
+public static void main(String[] args) {
 	MyMenu menuPrincipale= new MyMenu(TITOLO,MENU_PRINCIPALE);
 	MyMenu menuCaso1= new MyMenu(TITOLO,MENU1);
 	MyMenu menuCaso2= new MyMenu(TITOLO,MENU2);
 	MyMenu menuCaso3= new MyMenu(TITOLO,MENU3);
+
 	sistema = new SistemaStellare();
-	System.out.println("Benvenuto nel programma per la gestione dei sistemi stellari!");
 	stella= creaStella();
 	do {
 	switch(menuPrincipale.scegli()) {
 		case 1: 												//GESTIONE CORPI CELESTI DEL SISTEMA STELLARE
 				switch(menuCaso1.scegli()) {
-					case 1: 									//Aggiunta di nuovi pianeti o lune, in caso di nuove scoperte
+					case 1: //Aggiunta di nuovi pianeti o lune, in caso di nuove scoperte
 								boolean cosaAggiungere = InputDati.yesOrNo(VUOI_CREARE_UN_PIANETA); 
 							if (cosaAggiungere) {Pianeta creato= creaPianeta();
 								sistema.aggiungiPianeta(creato);}
@@ -51,9 +50,9 @@ public class PlanetariumMain {
 								Id id = identificaCorpo(INSERISCI_IL_SUO_ID);
 								Pianeta pianeta = sistema.restituisciPianetaTramiteId(id);
 								pianeta.aggiungiLuna(creata);}
-						break;
+					break;
 						
-					case 2:										//Rimozione di vecchi pianeti o lune
+					case 2: //Rimozione di vecchi pianeti o lune
 						boolean cosaRimuovere = InputDati.yesOrNo(VUOI_CREARE_UN_PIANETA); 
 						if (cosaRimuovere) {Id idPianeta = identificaCorpo(INSERISCI_IL_SUO_ID);
 							if(sistema.presenzaPianeta(idPianeta)) {
@@ -71,9 +70,9 @@ public class PlanetariumMain {
 								pianeta.rimuoviLuna(lunaPresente);}
 							else System.out.println(CORPO_NON_TROVATO);}
 							
-						break;
+					break;
 						
-					case 3:										//Identificazione di ciascun corpo celeste con un codice univoco
+					case 3:	//Identificazione di ciascun corpo celeste con un codice univoco
 							boolean scelta = InputDati.yesOrNo("il corpo che si vuole identificare è un pianeta?");
 							
 							if(scelta) {
@@ -96,18 +95,18 @@ public class PlanetariumMain {
 						
 					case 0:break;		 						//torna al menu  
 					default: System.out.println(CORPO_NON_TROVATO);}
-		break;													//fuori dal caso 1 del menù principale
+		break;													
 			
 		case 2: 												//RICERCA DI UN CORPO CELESTE ALL'INTERNO DEL SISTEMA
 				switch(menuCaso2.scegli()) {
-					case 1:										//Possibilità di capire se è presente nel sistema stellare
+					case 1: //Possibilità di capire se è presente nel sistema stellare
 							Id idPianeta= identificaCorpo(INSERISCI_IL_SUO_ID);
 							if(sistema.presenzaPianeta(idPianeta)) 
 								System.out.println("Corpo presente nel sistema stellare");
 							else System.out.println(IL_CORPO_NON_È_PRESENTE);
 					break;
 						
-					case 2:										//Nel caso di lune, identificazione del pianeta attorno a cui gira
+					case 2: //Nel caso di lune, identificazione del pianeta attorno a cui gira
 						Id idLuna = identificaCorpo(INSERISCI_IL_SUO_ID);						
 						Luna luna = sistema.getLuna(idLuna);
 						System.out.println("La luna: " + luna.getId() + "è presente nel sistema e ruota attorno al"
@@ -118,18 +117,18 @@ public class PlanetariumMain {
 					case 0:break;		 						//torna al menu  
 						
 					default: System.out.println("operazione non valida");}
-		break;													//fuori dal caso 2 del menù principale
+		break;													
 			
 		case 3: 												//VISUALIZZAZIONE DELLE INFORMAZIONI
 		
 					switch(menuCaso3.scegli()) {
-						case 1:									//Dato un pianeta, visualizzazione delle lune che gli orbitano intorno.
+						case 1: //Dato un pianeta, visualizzazione delle lune che gli orbitano intorno.
 							Id idPianeta= identificaCorpo(INSERISCI_IL_SUO_ID);
 							Pianeta pianeta= sistema.restituisciPianetaTramiteId(idPianeta);
 							System.out.println("le lune del pianeta sono"+ pianeta.getLune().toString());
 							break;
 					
-						case 2:									//Data una luna, visualizzazione del percorso [stella > pianeta > luna] necessario per	raggiungerla.
+						case 2:	//Data una luna, visualizzazione del percorso [stella > pianeta > luna] necessario per	raggiungerla.
 							Id idLuna= identificaCorpo(INSERISCI_IL_SUO_ID);
 							Luna luna = sistema.getLuna(idLuna);
 							pianeta= luna.getPianeta();
@@ -141,17 +140,16 @@ public class PlanetariumMain {
 						case 0:break;		 					//torna al menu  
 						
 						default: System.out.println("operazione non valida");}	
-					break;										//fuori dal caso 3 del menù principale
+		break;										
 	
 		case 4:													//CALCOLO DEL CENTRO DI MASSA
-			
 				double xCentro= (double)(stella.getX()+sistema.getCoordinataXPianeti()+sistema.getCoordinataXLune())
 						/(double)(sistema.getMassaPianeti()+sistema.getMassaLune());
 				double yCentro= (double)(stella.getY()+sistema.getCoordinataYPianeti()+sistema.getCoordinataYLune())
 						/(double)(sistema.getMassaPianeti()+sistema.getMassaLune());
 				
 				System.out.println("il centro di massa si trova alle coordinate: " + xCentro + " " + yCentro);
-		break;													//fuori dal caso 4 del menù principale	
+		break;													
 			
 		case 0:  System.exit(0);								//Termina il programma
 		break;
@@ -161,34 +159,39 @@ public class PlanetariumMain {
 			
 	}while(USCITA);
 }
-			
-	public static Stella creaStella() {							//Questo metodo serve per far creare la stella all'utente 
-		String nome= InputDati.leggiStringa(NOME_STELLA);
-		int numero= InputDati.leggiIntero(NUMERO_STELLA);
-		Id id= new Id(nome, numero);
-		int massa= InputDati.leggiIntero(MASSA);
-				
-		return new Stella(id,massa);
-	}
-	
-	public static Pianeta creaPianeta() {						//Questo metodo serve per far creare i pianeti all'utente 
-		
-		String nome= InputDati.leggiStringa(NOME);
-		int numero= InputDati.leggiIntero(NUMERO);
-		Id id= new Id(nome, numero);
-		int massa= InputDati.leggiIntero(MASSA);
-		double x=InputDati.leggiDouble(COORDINATA_X);
-		double y=InputDati.leggiDouble(COORDINATA_Y);
 
-	return new Pianeta(id,massa,x,y, stella);}
-	
-	public static Luna creaLuna() {								//Questo metodo serve per far creare le lune all'utente 
-		Pianeta aCuiAppartieneLaStella= null;
-		boolean trovato= false;
-		Id idPianeta =identificaCorpo("a che pianeta appartiene la luna che vuoi creare?");
-		while (sistema.presenzaPianeta(idPianeta)&& trovato) {
-			aCuiAppartieneLaStella= sistema.restituisciPianetaTramiteId(idPianeta);
-			trovato=true;}
+//Questo metodo serve per far creare la stella all'utente 			
+public static Stella creaStella() {							
+	System.out.println("Benvenuto nel programma per la gestione dei sistemi stellari!");
+	String nome= InputDati.leggiStringa(NOME_STELLA);
+	int numero= InputDati.leggiIntero(NUMERO_STELLA);
+	Id id= new Id(nome, numero);
+	int massa= InputDati.leggiIntero(MASSA);
+				
+	return new Stella(id,massa);
+}
+
+//Questo metodo serve per far creare i pianeti all'utente	
+public static Pianeta creaPianeta() {						 
+	String nome= InputDati.leggiStringa(NOME);
+	int numero= InputDati.leggiIntero(NUMERO);
+	Id id= new Id(nome, numero);
+	int massa= InputDati.leggiIntero(MASSA);
+	double x=InputDati.leggiDouble(COORDINATA_X);
+	double y=InputDati.leggiDouble(COORDINATA_Y);
+
+	return new Pianeta(id,massa,x,y, stella);
+}
+
+//Questo metodo serve per far creare le lune all'utente 	
+public static Luna creaLuna() {								
+	Pianeta aCuiAppartieneLaStella= null;
+	boolean trovato= false;
+	Id idPianeta =identificaCorpo("a che pianeta appartiene la luna che vuoi creare?");
+	while (sistema.presenzaPianeta(idPianeta)&& trovato) {
+		aCuiAppartieneLaStella= sistema.restituisciPianetaTramiteId(idPianeta);
+		trovato=true;
+	}
 		
 	String nome= InputDati.leggiStringa(NOME);
 	int numero= InputDati.leggiIntero(NUMERO);
@@ -197,16 +200,16 @@ public class PlanetariumMain {
 	double x=InputDati.leggiDouble(COORDINATA_X);
 	double y=InputDati.leggiDouble(COORDINATA_Y);
 	
-	
 	return new Luna(id,massa,x,y, aCuiAppartieneLaStella);
-	}
-	
-	public static Id identificaCorpo(String messaggio) {		//Questo metodo serve per far inserire l'id del corpo celeste all'utente 
-		System.out.println(messaggio);
-		String nome= InputDati.leggiStringa(NOME);
-		int numero= InputDati.leggiIntero(NUMERO);
+}
+
+//Questo metodo serve per far inserire l'id del corpo celeste all'utente 	
+public static Id identificaCorpo(String messaggio) {			
+	System.out.println(messaggio);
+	String nome= InputDati.leggiStringa(NOME);
+	int numero= InputDati.leggiIntero(NUMERO);
 		
-		return new Id(nome, numero);
-	}
+	return new Id(nome, numero);
+}
 	
 }

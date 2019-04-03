@@ -4,9 +4,6 @@ import java.util.ArrayList;
 
 public class SistemaStellare {
 
-	public SistemaStellare() {
-	}
-
 	private ArrayList<Pianeta> pianeti = new ArrayList<Pianeta>();
 
 	// Aggiunta di nuovi pianeti, in caso di nuove scoperte CASO 1.1 MAIN

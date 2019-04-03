@@ -3,8 +3,6 @@ package it.unibs.programmaarnaldo1;
 import java.util.ArrayList;
 
 public class CorpoCeleste {
-	
-	
 	private Id id;
 	private int massa;
 	private double[] coordinate= new double[2];
@@ -15,15 +13,11 @@ public class CorpoCeleste {
 		coordinate[0]=x;
 		coordinate[1]=y;
 	}
-
 	
-	
+	//getter 
 	public ArrayList<Luna> getLune() {
 		return getLune();
 	}
-	
-	
-	
 	public Id getId() {
 		return id;
 	}
