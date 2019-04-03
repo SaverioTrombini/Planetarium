@@ -20,7 +20,7 @@ public class PlanetariumMain {
 	private static final boolean USCITA = true;
 	private static Stella stella;
 	private static SistemaStellare sistema;
-	private static CorpoCeleste corpoCeleste;
+
 	public static void main(String[] args) {
 
 	MyMenu menuPrincipale= new MyMenu(TITOLO,MENU_PRINCIPALE);

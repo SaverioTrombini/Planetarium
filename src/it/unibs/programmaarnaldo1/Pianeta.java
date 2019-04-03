@@ -50,9 +50,8 @@ public class Pianeta extends CorpoCeleste {
 		return lune;
 	}
 
-
-
 	
+
 
 	
 }
