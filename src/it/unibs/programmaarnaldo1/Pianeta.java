@@ -41,6 +41,8 @@ public class Pianeta extends CorpoCeleste {
 				presente = true;}
 			return presente;}
 
+	
+	
 
 	public Stella getStella() {
 		return stella;
